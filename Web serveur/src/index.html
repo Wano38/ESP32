@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>ESP32 Web Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; text-align: center; margin: 0px auto; padding-top: 30px;}
+    .sensor-data {
+      font-size: 24px;
+      margin: 20px;
+      padding: 10px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+  </style>
+  <script>
+    // Fonction pour mettre à jour la température toutes les 2 secondes
+    function updateData() {
+      fetch('/temperature')
+        .then(response => response.text())
+        .then(data => document.getElementById('temperature').innerHTML = data + ' °C');
+      
+      setTimeout(updateData, 1000);
+    }
+    window.onload = updateData;
+  </script>
+</head>
+<body>
+  <h1>ESP32 Web Server</h1>
+  <div class="sensor-data">
+    <p>Température: <span id="temperature">--</span></p>
+  </div>
+</body>
+</html>
